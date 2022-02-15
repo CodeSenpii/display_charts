@@ -1,14 +1,23 @@
 {
-  "name": "mydata",
+  "name": "display_charts",
   "version": "1.0.0",
-  "description": "",
+  "description": "from challenge",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeSenpii/display_charts.git"
+  },
   "author": "KP",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeSenpii/display_charts/issues"
+  },
+  "homepage": "https://github.com/CodeSenpii/display_charts#readme",
   "dependencies": {
-    "aws-sdk": "^2.1074.0"
+    "aws-sdk": "^2.1074.0",
+    "express": "^4.17.2"
   }
 }
