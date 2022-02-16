@@ -3,10 +3,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+
 const app = express();
 const port = 3000;
+var chart_data;
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
+// using ejs templates
+app.set('view engine', 'ejs');
 // aws sdk
 const aws_s3  = require('aws-sdk');
 const auth = require('./auth.json');
@@ -31,14 +36,12 @@ try{
       if (error != null) {
         console.log("Connot retrieve object: \ncheck file name \nOr upload a file. \nERROR: " + error);
       } else {
-        // console.log("Loaded " + data.ContentLength + " bytes");
-        // console.log("Loaded " + data);
-        // do something with data.Body
+        console.log("Loaded " + data.ContentLength + " bytes");
       }
     }
   ).promise();
 
-  const chart_data = JSON.parse(response.Body);
+  chart_data = JSON.parse(response.Body);
   console.log(chart_data);
 
 }catch(e){
@@ -46,9 +49,11 @@ try{
 }
 
 }// end async function
+s3connect();
 
 app.get("/", function(req, res){
-  res.sendFile(__dirname + "/index.html");
+  // res.sendFile(__dirname + "/index.html");
+  res.render("charts", {chartData : chart_data});
 });
 
 app.listen(port, function(){
@@ -56,4 +61,3 @@ console.log("Server started on port 3000");
 });
 
 // function call
-s3connect();
