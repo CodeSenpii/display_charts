@@ -5,60 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
   <title>Charts</title>
 </head>
 <body>
   <h1><%=chartData.x_values%></h1>
   <h1><%=chartData.y_values %></h1>
 
+  <form class="" action="index.html" method="post">
+
+  </form>
 
   <div class="container">
     <canvas id="canvas" width="500" height="500"></canvas>
   </div>
-  <script type="text/javascript">
-    let myChart = document.getElementById('canvas').getContext('2d');
-    let myData = Array.from(document.querySelectorAll('h1'));
-    // conver string to array object of floats
-    let xValues = myData[0].textContent.replaceAll(',', ' ').split(' ');
-    let yValues = myData[1].textContent.replaceAll(',', ' ').split(' ');
-
-    // console.log(parseFloat(yValues[2]) + 2);
-
-    // console.log(Array.from(myData[1].textContent).join(''));
-
-
-    // convert the string array to int array
-    // for (var j = 0; j < myData[0].length; j++){
-    //   for (var i = 0; i < myData[j].innerHTML.length; i++){
-    //     if(myData[0] != ','){
-    //       xValues.push(parseFloat(myData[i]));
-    //     }
-    //   }// end innner for loop
-    // }// end outer for loop
-
-    // create data object for scatter plot
-    let dataObject = []
-    for (var i = 0; i<xValues.length; i++){
-      dataObject.push({x : xValues[i], y : yValues[i]});
-    }
-
-
-    console.log(dataObject);
-    let chart = new Chart(myChart, {
-      type:'scatter',
-      data:{
-        labels:['Boston', 'Worcester', 'Springfield', 'Lowell'],
-        datasets:[{
-          label:'Population',
-          backgroundColor: 'tomato',
-          borderColor: 'rgb(255, 99, 132)',
-          data: dataObject
-
-        }]
-      },
-      options:{}
-    });
-  </script>
+  <script src="./index.js" charset="utf-8"></script>
 
 </body>
 </html>
