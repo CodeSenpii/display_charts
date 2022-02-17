@@ -4,11 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Charts</title>
 </head>
 <body>
   <h1><%=chartData.x_values%></h1>
   <h1><%=chartData.y_values %></h1>
+
+
+  <div class="container">
+    <canvas id="canvas" width="500" height="500"></canvas>
+  </div>
+  <script type="text/javascript">
+    let myChart = document.getElementById('canvas').getContext('2d');
+    let myData = Array.from(document.querySelector('h1').innerHTML);
+    let dataArray = [];
+
+    // convert the string array to int array
+    for (var i = 0; i < myData.length; i++){
+      if(myData[i] != ','){
+        dataArray.push(parseFloat(myData[i]));
+      }
+
+    }
+
+
+    console.log(dataArray);
+    let chart = new Chart(myChart, {
+      type:'line',
+      data:{
+        labels:['Boston', 'Worcester', 'Springfield', 'Lowell'],
+        datasets:[{
+          label:'Population',
+          backgroundColor: 'tomato',
+          borderColor: 'rgb(255, 99, 132)',
+          data: dataArray,
+          
+        }]
+      },
+      options:{}
+    });
+  </script>
 
 </body>
 </html>
