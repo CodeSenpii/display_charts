@@ -17,29 +17,43 @@
   </div>
   <script type="text/javascript">
     let myChart = document.getElementById('canvas').getContext('2d');
-    let myData = Array.from(document.querySelector('h1').innerHTML);
-    let dataArray = [];
+    let myData = Array.from(document.querySelectorAll('h1'));
+    // conver string to array object of floats
+    let xValues = myData[0].textContent.replaceAll(',', ' ').split(' ');
+    let yValues = myData[1].textContent.replaceAll(',', ' ').split(' ');
+
+    // console.log(parseFloat(yValues[2]) + 2);
+
+    // console.log(Array.from(myData[1].textContent).join(''));
+
 
     // convert the string array to int array
-    for (var i = 0; i < myData.length; i++){
-      if(myData[i] != ','){
-        dataArray.push(parseFloat(myData[i]));
-      }
+    // for (var j = 0; j < myData[0].length; j++){
+    //   for (var i = 0; i < myData[j].innerHTML.length; i++){
+    //     if(myData[0] != ','){
+    //       xValues.push(parseFloat(myData[i]));
+    //     }
+    //   }// end innner for loop
+    // }// end outer for loop
 
+    // create data object for scatter plot
+    let dataObject = []
+    for (var i = 0; i<xValues.length; i++){
+      dataObject.push({x : xValues[i], y : yValues[i]});
     }
 
 
-    console.log(dataArray);
+    console.log(dataObject);
     let chart = new Chart(myChart, {
-      type:'line',
+      type:'scatter',
       data:{
         labels:['Boston', 'Worcester', 'Springfield', 'Lowell'],
         datasets:[{
           label:'Population',
           backgroundColor: 'tomato',
           borderColor: 'rgb(255, 99, 132)',
-          data: dataArray,
-          
+          data: dataObject
+
         }]
       },
       options:{}
