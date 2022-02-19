@@ -9,16 +9,37 @@
   <title>Charts</title>
 </head>
 <body>
-  <h1><%=chartData.x_values%></h1>
-  <h1><%=chartData.y_values %></h1>
+  <!-- get and display file names -->
+  <div class="box">
+    <%if(newFiles.length > 0){%>
+  <%for(let i=0; i<newFiles.length; i++){%>
 
-  <form class="" action="index.html" method="post">
+      <div class="items">
+        <input class="check-box" type="checkbox">
+        <p><%=newFiles[i]%></p>
+      </div>
+    <%}%>
+  <%}else{%>
+    <h3>Add a  .JSON data file to s3 Bucket to continue</h3>
+  <%}%>
 
-  </form>
+  <button type="button" name="button">Plot</button>
+  </div>
+
+
 
   <div class="container">
-    <canvas id="canvas" width="500" height="500"></canvas>
+    <canvas id="canvas" width="500" height="300"></canvas>
   </div>
+
+  <!-- chart data placed in h5 elements -->
+  <%for(let i=0; i < chartData.length; i++){%>
+    <div class="">
+      <h5><%=chartData[i].x_values%></h5>
+      <h5><%=chartData[i].y_values%></h5>
+    </div>
+  <%}%>
+
   <script src="./index.js" charset="utf-8"></script>
 
 </body>

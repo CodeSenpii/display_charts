@@ -6,17 +6,33 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
-var chart_data;
+let chart_data = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-// using ejs templates
+// using ejs templates 
 app.set('view engine', 'ejs');
 // aws sdk
 const aws_s3  = require('aws-sdk');
 const auth = require('./auth.json');
 
-// async
+let fileNames = [];
+
+//Add the filename here**********************************
+fileNames = ["data.json", "data2.json"];
+// ******************************************************
+
+function s3ConnectStatus(error, data) {
+  if (error != null) {
+    console.log("Connot retrieve object: \ncheck file name \nOr upload a file. \nERROR: " + error);
+  } else {
+    // console.log("Loaded " + data.ContentLength + " bytes");
+    // console.log(data);
+    chart_data.push(JSON.parse(data.Body));
+  }
+}// end function
+
+// async to connent to s3 bucket
 async  function s3connect(){
 try{
   aws_s3.config.setPromisesDependency();
@@ -30,19 +46,18 @@ try{
   // s3 instantion
   const s3 = new aws_s3.S3();
   //retrieve object from s3
-  const response = await s3.getObject(
-    { Bucket: "kpdata", Key: "data.json" },
-    function (error, data) {
-      if (error != null) {
-        console.log("Connot retrieve object: \ncheck file name \nOr upload a file. \nERROR: " + error);
-      } else {
-        console.log("Loaded " + data.ContentLength + " bytes");
-      }
-    }
-  ).promise();
+  for(var i = 0; i < fileNames.length; i++){
 
-  chart_data = JSON.parse(response.Body);
-  console.log(chart_data);
+    const response0 = await s3.getObject(
+      { Bucket: "kpdata", Key: fileNames[i] },
+      s3ConnectStatus
+    ) .promise();
+    chart_data.pop();// remove duplicate entries
+  }
+
+
+  // chart_data0 = JSON.parse(response0.Body);
+  // console.log("This is the 1" + chart_data0);
 
 }catch(e){
   console.log('Error', e);
@@ -53,7 +68,7 @@ s3connect();
 
 app.get("/", function(req, res){
   // res.sendFile(__dirname + "/index.html");
-  res.render("charts", {chartData : chart_data});
+  res.render("charts", {chartData : chart_data, newFiles : fileNames});
 });
 
 app.listen(port, function(){
