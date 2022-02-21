@@ -10,7 +10,7 @@ let chart_data = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-// using ejs templates 
+// using ejs templates
 app.set('view engine', 'ejs');
 // aws sdk
 const aws_s3  = require('aws-sdk');
@@ -69,6 +69,10 @@ s3connect();
 app.get("/", function(req, res){
   // res.sendFile(__dirname + "/index.html");
   res.render("charts", {chartData : chart_data, newFiles : fileNames});
+});
+
+app.post("/", function(req, res){
+   
 });
 
 app.listen(port, function(){
