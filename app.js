@@ -17,9 +17,25 @@ const aws_s3  = require('aws-sdk');
 const auth = require('./auth.json');
 
 let fileNames = [];
+let index = 0;
 
 //Add the filename here**********************************
-fileNames = ["data.json", "data2.json"];
+
+if (process.argv.length > 2){
+
+  process.argv.forEach((val) => {
+    if (index >= 2){
+      fileNames.push(val);
+      index++;
+    }else{
+      index++;
+    }
+
+  });
+}else{
+  fileNames = ["data.json", "data2.json"];
+}
+
 // ******************************************************
 
 function s3ConnectStatus(error, data) {
@@ -72,7 +88,7 @@ app.get("/", function(req, res){
 });
 
 app.post("/", function(req, res){
-   
+
 });
 
 app.listen(port, function(){

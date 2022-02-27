@@ -42,19 +42,27 @@ for (let i = 0; i < myData.length/2; i++){
     for (let i = 0; i<xValues.length; i++){
       dataObject1.push({x : xValues[i], y : yValues[i]});
       }
-      counter++;
-    }//end if
-
-    // create data object for chart 2
-    if(counter === 1){
+      // counter++;
+    }else if(counter === 1) {
       let xValues = myData[counter+1].textContent.replaceAll(',', ' ').split(' ');
       let yValues = myData[counter+2].textContent.replaceAll(',', ' ').split(' ');
 
         for (let i = 0; i<xValues.length; i++){
           dataObject2.push({x : xValues[i], y : yValues[i]});
           }
-          counter++;
-    }
+    }//end if
+    counter++;
+
+    // create data object for chart 2
+    // if(counter === 1){
+    //   let xValues = myData[counter+1].textContent.replaceAll(',', ' ').split(' ');
+    //   let yValues = myData[counter+2].textContent.replaceAll(',', ' ').split(' ');
+    //
+    //     for (let i = 0; i<xValues.length; i++){
+    //       dataObject2.push({x : xValues[i], y : yValues[i]});
+    //       }
+    //       counter++;
+    // }
 }// end outter for loop
 
 
