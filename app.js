@@ -92,7 +92,27 @@ app.post("/", function(req, res){
 });
 
 app.listen(port, function(){
-console.log("Server started on port 3000");
+console.log("Serveer started on port 3000");
+});
+
+app.post("/addfile", function(req, res){
+  var file1 = req.body.newFile1;
+  var file2 = req.body.newFile2;
+
+
+  if(file2 && file1){
+    fileNames = [];
+    fileNames.push(file1);
+    fileNames.push(file2);
+  }else if(file1){
+    fileNames = [];
+    fileNames.push(file1);
+  }else if(file2){
+    fileNames = [];
+    fileNames.push(file2);
+  }
+
+  res.redirect("/");
 });
 
 // function call
