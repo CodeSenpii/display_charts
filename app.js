@@ -91,7 +91,7 @@ app.post("/", function(req, res){
 
 });
 
-app.listen(port, function(){
+app.listen(process.env.POST || port, function(){
 console.log("Serveer started on port 3000");
 });
 
